@@ -1,0 +1,78 @@
+<div class="container-fluid m-t">
+  <p-accordion>
+    <p-accordionTab header="Yearly Statistics" [selected]="true">
+      <div class="row justify-content-center m-t">
+        <div class="col-8">
+          <div class="row" style="padding: 16px">
+            <div class="col-4 my-auto">
+              <label for="year">Year</label>
+              <select id="year" class="form-control" [(ngModel)]="year" (change)="changeYear()">
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+              </select>
+            </div>
+
+            <div class="col-8">
+              <div class="row">
+                <div class="col">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="stat_type" id="all_clients" [value]="0"
+                           [(ngModel)]="yearlyStatType" (click)="refreshYearlyStatAllClients()" checked="checked">
+                    <label class="form-check-label" for="all_clients">
+                      All Clients
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="stat_type" id="single_client" [value]="1"
+                           [(ngModel)]="yearlyStatType">
+                    <label class="form-check-label" for="single_client">
+                      Single Client
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="client">Client</label>
+                  <select id="client" class="form-control" [disabled]="yearlyStatType==0"
+                          [(ngModel)]="clientId" (change)="refreshYearlyStatSingleClient()">
+                    <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row m-t">
+            <div class="col">
+              <p-chart type="bar" [data]="yearlyStat.barChart"></p-chart>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">Total Ever: {{yearlyStat.total | currency}}</div>
+            <div class="col">Total This Year: {{yearlyStat.yearlySalary | currency}}</div>
+            <div class="col">Average Salary: {{yearlyStat.averageSalary | currency}}</div>
+          </div>
+        </div>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Client Statistics">
+      <div class="row justify-content-center m-t">
+        <div class="col-8">
+          <div class="row">
+            <div class="col text-center m-b">
+              <h3>Clients Statistics</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p-chart type="pie" [data]="clientStat"></p-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+</div>

@@ -1,0 +1,36 @@
+<div class="container-fluid m-t">
+
+  <div class="row">
+    <div class="col-auto">
+      <app-add-job></app-add-job>
+    </div>
+    <div class="col-auto">
+      <app-edit-job></app-edit-job>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-danger" [ngClass]="{'disabled' : selectedRow==null}" (click)="deleteJob()">Delete</button>
+    </div>
+  </div>
+
+  <table class="table table-striped table-bordered m-t">
+    <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Price</th>
+      <th scope="col">Client</th>
+      <th scope="col">Completed</th>
+      <th scope="col">Paid</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let job of allJobs; let i = index;" (click)="selectJob(job.jobId, i)"
+        [class.active]="i == selectedRow">
+      <td>{{job.title}}</td>
+      <td>{{job.payment.price | currency}}</td>
+      <td><a routerLink="" (click)="navigateToClientStat(job.client.clientId)">{{job.client.name}}</a></td>
+      <td>{{job.completed==true?"Yes":"No"}}</td>
+      <td>{{job.paid==true?"Yes":"No"}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

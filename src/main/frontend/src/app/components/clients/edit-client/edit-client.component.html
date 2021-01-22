@@ -1,0 +1,28 @@
+<button class="btn btn-info" [ngClass]="{'disabled' : selectedClient==null}" (click)="openDialog()">Edit</button>
+
+<p-dialog header="Edit Client" [(visible)]="displayDialog" *ngIf="selectedClient!=null">
+  <div class="container m-t m-b">
+    <form class="row" #editClientForm="ngForm" (ngSubmit)="onSubmit()">
+
+      <div class="col">
+        <label for="name"><b>Name</b></label>
+        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="selectedClient.name" #name="ngModel"
+        required autocomplete="off">
+
+        <div *ngIf="error" class="alert alert-danger m-t">
+            Name is required.
+        </div>
+
+        <div class="row m-t">
+          <div class="col-auto ml-auto">
+            <button class="btn btn-primary" type="submit">Save</button>
+          </div>
+          <div class="col-auto mr-auto">
+            <button class="btn btn-secondary" type="button" (click)="closeDialog()">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</p-dialog>

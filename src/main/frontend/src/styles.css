@@ -1,0 +1,18 @@
+.m-t{
+  margin-top: 1em;
+}
+.m-b{
+  margin-bottom: 1em;
+}
+.m-l{
+  margin-left: 1em;
+}
+.m-r{
+  margin-right: 1em;
+}
+
+.table tr.active td {
+  background-color: #bdbdbd !important;
+  color: white;
+}
+

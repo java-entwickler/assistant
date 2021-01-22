@@ -1,0 +1,107 @@
+<button class="btn btn-info" [ngClass]="{'disabled' : job == null}" (click)="openDialog()">Edit</button>
+<p-dialog header="Edit Job" [(visible)]="displayDialog" *ngIf="job!=null">
+  <div class="container m-t m-b">
+    <form class="row" #jobForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="col">
+
+        <div class="row m-t">
+          <div class="col">
+            <label for="title"><b>Title</b></label>
+            <input type="text" class="form-control" id="title" name="title" [(ngModel)]="job.title" required
+                   #title="ngModel" autocomplete="off">
+            <div *ngIf="title.invalid && (title.dirty || title.touched)"
+                 class="alert alert-danger m-t">
+              <div *ngIf="title.errors.required">
+                Title is required.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-t">
+          <div class="col">
+            <label for="client"><b>Client</b></label>
+            <select class="form-control" id="client" [(ngModel)]="job.client.clientId" name="client" required
+                    #client="ngModel">
+              <option *ngFor="let client of availableClients" [value]="client.clientId">{{client.name}}</option>
+            </select>
+            <div *ngIf="client.invalid && (client.dirty || client.touched)"
+                 class="alert alert-danger m-t">
+              <div *ngIf="client.errors.required">
+                Client is required.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-t">
+          <div class="col">
+            <label for="price"><b>Price</b></label>
+            <input type="number" class="form-control" id="price" name="price" [(ngModel)]="job.payment.priceWithoutFee"
+                   required
+                   #price="ngModel" autocomplete="off">
+            <div *ngIf="price.invalid && (price.dirty || price.touched)"
+                 class="alert alert-danger m-t">
+              <div *ngIf="price.errors.required">
+                Price is required.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="m-t"><b>Fee</b></p>
+        <div class="row">
+          <div class="col">
+            <div class="custom-control custom-radio">
+              <div class="col">
+                <div class="custom-control custom-radio">
+                  <input  id="none" class="custom-control-input" name="fee" [(ngModel)]="job.payment.fee"
+                          #fee="ngModel" type="radio" [value]="0" required >
+                  <label class="custom-control-label" for="none">None</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="custom-control custom-radio">
+              <input  id="10" class="custom-control-input" name="fee" [(ngModel)]="job.payment.fee"
+                      #fee="ngModel" type="radio" [value]="10" required >
+              <label class="custom-control-label" for="10">10 %</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="custom-control custom-radio">
+              <input id="20" name="fee" class="custom-control-input" [(ngModel)]="job.payment.fee"
+                     #fee="ngModel" type="radio" [value]="20" required >
+              <label class="custom-control-label" for="20">20 %</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-t">
+          <div class="col">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="completed" name="completed" [(ngModel)]="job.completed">
+              <label class="custom-control-label" for="completed"><b>Completed</b></label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="paid" name="paid"  [(ngModel)]="job.paid">
+              <label class="custom-control-label" for="paid"><b>Paid</b></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-t">
+          <div class="col-auto ml-auto">
+            <button class="btn btn-primary" type="submit" [disabled]="!jobForm.form.valid">Save</button>
+          </div>
+          <div class="col-auto mr-auto">
+            <button class="btn btn-secondary" type="button" (click)="closeDialog()">Close</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</p-dialog>
